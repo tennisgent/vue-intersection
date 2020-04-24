@@ -3,6 +3,14 @@
     <div class="header">
       <h2><code>vue-intersection-observer</code></h2>
       <div class="option">
+        <div>At top:</div>
+        <div><code>{{atStart}}</code></div>
+      </div>
+      <div class="option">
+        <div>At bottom:</div>
+        <div><code>{{atEnd}}</code></div>
+      </div>
+      <div class="option">
         <div><code>rootMargin:</code></div>
         <input type="range" min="0" max="1000" step="20" @change="setMargin">
         <div>{{rootMargin}}</div>
@@ -15,7 +23,7 @@
     </div>
 
     <h4>Number of currently visible children: {{ children.filter(c => c.visible).length }}</h4>
-    <IntersectionRoot :threshold="threshold" :rootMargin="rootMargin" class="container">
+    <IntersectionRoot :threshold="threshold" :rootMargin="rootMargin" class="container" @start="setStart" @end="setEnd">
       <IntersectionChild
         class="child"
         v-for="child in children"
@@ -38,6 +46,8 @@ export default {
   },
   data() {
     return {
+      atStart: false,
+      atEnd: false,
       threshold: 1,
       rootMargin: "0px",
       children: new Array(50)
@@ -48,6 +58,12 @@ export default {
   methods: {
     setMargin(e) {
       this.rootMargin = e.target.value + "px";
+    },
+    setStart(entry) {
+      this.atStart = entry.isIntersecting;
+    },
+    setEnd(entry) {
+      this.atEnd = entry.isIntersecting;
     }
   }
 };

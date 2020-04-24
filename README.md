@@ -10,7 +10,7 @@ or
 npm i --save vue-intersection
 ```
 
-### Usage
+### Basic Usage
 
 ```html
 <template>

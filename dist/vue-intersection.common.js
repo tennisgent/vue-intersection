@@ -1825,12 +1825,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"0152aa52-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/IntersectionRoot.vue?vue&type=template&id=b3e62e8a&
-var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"root"},[_vm._t("default")],2)}
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"0152aa52-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/IntersectionRoot.vue?vue&type=template&id=11bffdb3&
+var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"root"},[_c('div',{attrs:{"data-v__intersection_id":"start"}}),_vm._t("default"),_c('div',{attrs:{"data-v__intersection_id":"end"}})],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/IntersectionRoot.vue?vue&type=template&id=b3e62e8a&
+// CONCATENATED MODULE: ./src/components/IntersectionRoot.vue?vue&type=template&id=11bffdb3&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.for-each.js
 var es_array_for_each = __webpack_require__("4160");
@@ -1859,6 +1859,8 @@ var web_dom_collections_for_each = __webpack_require__("159b");
 //
 //
 //
+//
+//
 var ID_ATTR = "data-v__intersection_id";
 /* harmony default export */ var IntersectionRootvue_type_script_lang_js_ = ({
   name: "IntersectionRoot",
@@ -1876,8 +1878,17 @@ var ID_ATTR = "data-v__intersection_id";
   methods: {
     registerIntersectionChild: function registerIntersectionChild(ref, callback) {
       if (!this.observer || !ref || !ref.setAttribute || !callback) return false;
-      if (ref.getAttribute(ID_ATTR)) return true;
-      var id = this.childId++;
+      var id = ref.getAttribute(ID_ATTR);
+
+      if (id) {
+        this.childrenById[id] = {
+          ref: ref,
+          callback: callback
+        };
+        return true;
+      }
+
+      id = this.childId++;
       ref.setAttribute(ID_ATTR, id);
       this.childrenById[id] = {
         ref: ref,
@@ -1889,15 +1900,10 @@ var ID_ATTR = "data-v__intersection_id";
     initializeObserver: function initializeObserver() {
       var _this = this;
 
-      if (!window.IntersectionObserver || !this.$refs.root) return false;
+      if (!window.IntersectionObserver) return false;
       var rootMargin = this.rootMargin,
           threshold = this.threshold,
-          $refs = this.$refs;
-      var options = {
-        root: $refs.root,
-        rootMargin: rootMargin,
-        threshold: threshold
-      };
+          root = this.$refs.root;
 
       var callback = function callback(entries) {
         entries.forEach(function (entry) {
@@ -1907,7 +1913,11 @@ var ID_ATTR = "data-v__intersection_id";
         });
       };
 
-      this.observer = new IntersectionObserver(callback, options);
+      this.observer = new IntersectionObserver(callback, {
+        root: root,
+        rootMargin: rootMargin,
+        threshold: threshold
+      });
       var childKeys = Object.keys(this.childrenById);
 
       if (childKeys.length > 0) {
@@ -1925,7 +1935,18 @@ var ID_ATTR = "data-v__intersection_id";
     };
   },
   mounted: function mounted() {
+    var _this2 = this;
+
     this.initializeObserver();
+    ['start', 'end'].forEach(function (key) {
+      var elem = _this2.$refs.root.querySelector("[".concat(ID_ATTR, "=").concat(key, "]"));
+
+      _this2.registerIntersectionChild(elem, function (entry) {
+        _this2.$emit(key, entry);
+      });
+
+      _this2.observer.observe(elem);
+    });
   },
   watch: {
     threshold: function threshold(val, old) {
