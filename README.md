@@ -48,4 +48,6 @@ export default {
 
 ### Demo
 
-You can see a live demo here: 
+You can see a series of live demos below: 
+
+- [Basic Usage](https://tennisgent.github.io/vue-intersection/demo/index.html)
