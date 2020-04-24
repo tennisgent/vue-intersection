@@ -1,7 +1,9 @@
 {
   "name": "vue-intersection",
-  "version": "0.0.2",
+  "version": "0.0.3",
+  "description": "Vue component for observing intersections of long lists of child components",
   "main": "dist/vue-intersection.common.js",
+  "homepage": "https://tennisgent.github.io/vue-intersection/",
   "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
