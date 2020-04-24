@@ -1,24 +1,51 @@
-# vue-intersection-observer
+# vue-intersection
 
-## Project setup
-```
-npm install
-```
+### Installation
 
-### Compiles and hot-reloads for development
 ```
-npm run serve
+yarn add vue-intersection
 ```
-
-### Compiles and minifies for production
+or
 ```
-npm run build
+npm i --save vue-intersection
 ```
 
-### Lints and fixes files
-```
-npm run lint
+### Usage
+
+```html
+<template>
+    <IntersectionRoot :threshold="threshold" :rootMargin="rootMargin">
+      <IntersectionChild
+        v-for="child in children"
+        :key="child.id"
+        @enter="child.visible = true"
+        @leave="child.visible = false"
+      >
+        {{ child.id }} is {{ child.visible ? '' : 'not' }} visible
+      </IntersectionChild>
+    </IntersectionRoot>
+  </div>
+</template>
+<script>
+import { IntersectionRoot, IntersectionChild } from 'vue-intersection'
+
+export default {
+    name: "MyComponent",
+    components: { IntersectionRoot, IntersectionChild },
+    data() {
+        return {
+            threshold: 1,
+            rootMargin: "0px",
+            children: new Array(50)
+                .fill(0)
+                .map((x, i) => ({ id: i + 1, visible: false }))
+            };
+        };
+    }
+}
+</script>
 ```
 
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Demo
+
+You can see a live demo here: 

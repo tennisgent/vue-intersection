@@ -1,11 +1,12 @@
 {
-  "name": "vue-intersection-observer",
-  "version": "0.1.0",
-  "private": true,
+  "name": "vue-intersection",
+  "version": "0.0.0",
+  "private": false,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "vue-cli-service build --dest demo",
+    "lint": "vue-cli-service lint",
+    "dist": "vue-cli-service build --target lib --name vue-intersection src/components/index.js"
   },
   "dependencies": {
     "core-js": "^3.6.4",
