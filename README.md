@@ -80,6 +80,7 @@ You wiil find addtional examples/demos below:
 - [Basic Usage](https://codesandbox.io/s/ecstatic-liskov-bl4xm?file=/src/App.vue)
 - [Lazy Loading Images](https://codesandbox.io/s/angry-tdd-0eyq0?file=/src/App.vue)
 - [Infinite Scroll](https://codesandbox.io/s/elastic-bell-9kcex?file=/src/App.vue)
+- [Delaying Expensive Computations](https://codesandbox.io/s/objective-yalow-eifxv?file=/src/App.vue)
 
 ### Browser Support
 
