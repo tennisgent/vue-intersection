@@ -51,7 +51,7 @@ export default {
 #### `IntersectionRoot`
 
 | Prop  | Type  | Required  | Description |
-|---|---|---|---|---|
+|---|---|---|---|
 | threshold  | `[String,Number]`  | Yes  | Corresponds to the [`threshold` option](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) on the IntersectionObserver   |
 | rootMargin  | `String`  | Yes  | Corresponds to the [`rootMargin` option](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) on the IntersectionObserver   |
 
