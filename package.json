@@ -1,7 +1,7 @@
 {
   "name": "vue-intersection",
-  "version": "0.0.3",
-  "description": "Vue component for observing intersections of long lists of child components",
+  "version": "0.1.0",
+  "description": "Vue component for observing scrolling of long lists of child components",
   "main": "dist/vue-intersection.common.js",
   "homepage": "https://tennisgent.github.io/vue-intersection/",
   "private": false,
