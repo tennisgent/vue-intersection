@@ -79,6 +79,9 @@ export default {
     rootMargin: function(val, old) {
       if (val !== old) this.initializeObserver();
     }
+  },
+  beforeDestroy() {
+    this.observer.disconnect && this.observer.disconnect();
   }
 };
 </script>
