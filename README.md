@@ -88,10 +88,13 @@ You wiil find addtional examples/demos below:
 
 ### Alternative Libraries
 
-- [`vue-intersect`](https://github.com/heavyy/vue-intersect)
+- [`heavyy/vue-intersect`](https://github.com/heavyy/vue-intersect)
+- [`arnellebalane/vue-intersect`](https://github.com/arnellebalane/vue-intersect)
 - [`vue-intersection-observer`](https://www.npmjs.com/package/vue-intersection-observer)
 - Vuetify's [`v-intersect`](https://vuetifyjs.com/en/directives/intersect/)
+- [`intersection-scroller-vue`](https://www.npmjs.com/package/intersection-scroller-vue)
 
 ### Justification
 
-The main reason I added another library on top of these other options is because each of these above is creates a new `IntersectionObserver` instance for each element that is being observed. So if you're trying to observe a large number of elements in a scrollable list, then that is a lot of observer instances. However, `vue-intersection` was designed such that there is only one observer instance created for each `IntersectionRoot` component, which observes each of the nested `IntersectionChild` elements. Thus, the performance is much better for long lists of elements. 
+- The main reason I added another library on top of these other options is because each of these above is creates a new `IntersectionObserver` instance for each element that is being observed. So if you're trying to observe a large number of elements in a scrollable list, then that is a lot of observer instances. However, `vue-intersection` was designed such that there is only one observer instance created for each `IntersectionRoot` component, which observes each of the nested `IntersectionChild` elements. Thus, the performance is much better for long lists of elements. 
+- Another shortcoming that several of these other libraries have is that they don't provide enough granular support on which container and which target elements to observe. Several of the above only support the root element being the `document.body` element, but often it is helpful to observe scrolling within some other element on your page. `vue-intersection` allows for much more fine-grain control and flexibility while still maintaining a simple API.
