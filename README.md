@@ -42,9 +42,8 @@ export default {
         return {
             threshold: 1,
             rootMargin: "0px",
-            children: new Array(50)
-                .fill(0)
-                .map((x, i) => ({ id: i + 1, visible: false }))
+            children: Array.from(Array(50).keys())
+                .map(id => ({ id, visible: false }))
             };
         };
     }
