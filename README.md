@@ -72,6 +72,30 @@ export default {
 | `@enter`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element enters the viewport of the `IntersectionRoot` container |
 | `@leave`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element leaves the viewport of the `IntersectionRoot` container |
 
+#### Accessing the `observer` instance
+
+If you want to access the instance of `IntersectionObserver` that has been initialized, you can do so using a ref on the `IntersectionRoot` component. This is exposed as `$refs.root.$observer`. This can be helpful if you need to call [`takeRecords()`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/takeRecords) or some other instance method. 
+
+```html
+<template>
+  <IntersectionRoot ref="myRef">
+     ...
+  </IntersectionRoot>
+</template>
+<script>
+import { IntersectionRoot } from 'vue-intersection'
+
+export default {
+    name: "MyComponent",
+    components: { IntersectionRoot },
+    mounted() {
+      const { $observer } = this.$refs.myRef.$refs.root;
+      const entries = $observer.takeRecords();
+    }
+}
+</script>
+```
+
 ### Demo
 
 You can find additional examples/demos below: 

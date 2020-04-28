@@ -38,7 +38,10 @@ export default {
       return true;
     },
     initializeObserver() {
-      if (!window.IntersectionObserver) return false;
+      if (typeof IntersectionObserver !== 'function') {
+        console.warn('[vue-intersection] IntersectionObserver not available');
+        return false;
+      }
       const { rootMargin, threshold, $refs } = this;
       const callback = entries => {
         entries.forEach(entry => {
@@ -70,13 +73,15 @@ export default {
   },
   mounted() {
     this.initializeObserver();
-    ['start','end'].forEach(key => {
-      const elem = this.$refs.root.querySelector(`[${ID_ATTR}=${key}]`);
-      this.registerIntersectionChild(elem, entry => {
-        this.$emit(key, entry);
+    if (this.observer) {
+      ['start','end'].forEach(key => {
+        const elem = this.$refs.root.querySelector(`[${ID_ATTR}=${key}]`);
+        this.registerIntersectionChild(elem, entry => {
+          this.$emit(key, entry);
+        });
+        this.observer.observe(elem);
       });
-      this.observer.observe(elem);
-    });
+    }
   },
   watch: {
     threshold: function(val, old) {
