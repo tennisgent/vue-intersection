@@ -11,6 +11,7 @@ const ID_ATTR = "data-v__intersection_id";
 export default {
   name: "IntersectionRoot",
   props: {
+    rootRef: Object,
     rootMargin: [Number, String],
     threshold: Array
   },
@@ -51,6 +52,7 @@ export default {
         rootMargin: rootMargin || '0px',
         threshold: threshold || [0,1],
       });
+      $refs.root.$observer = this.observer;
       const childKeys = Object.keys(this.childrenById);
       if (childKeys.length > 0) {
         childKeys
