@@ -69,8 +69,8 @@ export default {
 
 | Event  | Type | Arguments  | Description |
 |---|---|---|---|
-| `@enter`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element enters the viewport for of the `IntersectionRoot` container |
-| `@leave`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element leaves the viewport for of the `IntersectionRoot` container |
+| `@enter`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element enters the viewport of the `IntersectionRoot` container |
+| `@leave`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element leaves the viewport of the `IntersectionRoot` container |
 
 ### Demo
 
