@@ -2,7 +2,7 @@
 
 ### Summary
 
-`vue-intersection` is a library that implements an [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) that can be extremely helpful in a variety of scenarios. Probably the most common use case is for [lazy loading images in a long gallery](https://codesandbox.io/s/angry-tdd-0eyq0?file=/src/App.vue) or for [infinitely loading more content](https://codesandbox.io/s/elastic-bell-9kcex?file=/src/App.vue) whenever the user scrolls to the bottom of your page, but it can be used to improve performance of scrollable UIs in any number of ways. You will find some other examples below. Whenever you want to offload an action until a particular element in scrolled into the user's view, this is a great tool to help you do that with a very simple API. 
+`vue-intersection` is a library that implements an [`IntersectionObserver`](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API), which can be extremely helpful in a variety of scenarios. Probably the most common use case is for [lazy loading images in a long gallery](https://codesandbox.io/s/angry-tdd-0eyq0?file=/src/App.vue) or for [infinitely loading more content](https://codesandbox.io/s/elastic-bell-9kcex?file=/src/App.vue) whenever the user scrolls to the bottom of your page, but it can be used to improve performance of scrollable UIs in any number of ways. You will find some other examples below. Whenever you want to offload an action until a particular element in scrolled into the user's view, this is a great tool to help you do that with a very simple API.
 
 ### Installation
 
@@ -61,14 +61,14 @@ export default {
 | `rootMargin`  | `Number`/`String`  | `"0px"`  | Corresponds to the [`rootMargin` option](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) on the IntersectionObserver   |
 
 | Event  | Type  | Arguments  | Description |
-|---|---|---|---|---|
+|---|---|---|---|
 | `@start`  | `Function` | [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)  | Will be fired whenever the user scrolls to the top of the `IntersectionRoot` container |
 | `@end`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)  | Will be fired whenever the user scrolls to the bottom of the `IntersectionRoot` container |
 
 #### `IntersectionChild`
 
 | Event  | Type | Arguments  | Description |
-|---|---|---|---|---|
+|---|---|---|---|
 | `@enter`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element enters the viewport for of the `IntersectionRoot` container |
 | `@leave`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element leaves the viewport for of the `IntersectionRoot` container |
 
