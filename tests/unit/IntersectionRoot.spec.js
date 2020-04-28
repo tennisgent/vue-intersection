@@ -14,16 +14,15 @@ describe('IntersectionRoot', () => {
           }
     })
 
-    it('should expose $observer through $refs.root', () => {
+    it('should expose observer', () => {
         const wrapper = mount(IntersectionRoot);
-        expect(wrapper.vm.$refs.root).toBeTruthy();
-        expect(wrapper.vm.$refs.root.$observer).toBeTruthy();
+        expect(wrapper.vm.observer).toBeTruthy();
+        expect(wrapper.vm.observer).toBeTruthy();
     });
 
-    it('should allow calling $observer.takeRecords()', () => {
+    it('should allow calling observer.takeRecords()', () => {
         const wrapper = mount(IntersectionRoot);
-        const { $observer } = wrapper.vm.$refs.root;
-        const entries = $observer.takeRecords();
+        const entries = wrapper.vm.observer.takeRecords();
         // should return 2 for the "start" and "end" divs
         expect(entries.length).toBe(2);
     });

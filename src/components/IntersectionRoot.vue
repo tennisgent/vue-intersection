@@ -55,7 +55,6 @@ export default {
         rootMargin: rootMargin || '0px',
         threshold: threshold || [0,1],
       });
-      $refs.root.$observer = this.observer;
       const childKeys = Object.keys(this.childrenById);
       if (childKeys.length > 0) {
         childKeys
