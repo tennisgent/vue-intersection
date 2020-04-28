@@ -55,22 +55,22 @@ export default {
 
 #### `IntersectionRoot`
 
-| Prop  | Type  | Required  | Description |
+| Prop  | Type  | Default  | Description |
 |---|---|---|---|
-| `threshold`  | `[String,Number]`  | Yes  | Corresponds to the [`threshold` option](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) on the IntersectionObserver   |
-| `rootMargin`  | `String`  | Yes  | Corresponds to the [`rootMargin` option](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) on the IntersectionObserver   |
+| `threshold`  | `Array`  | `[0,1]`  | Corresponds to the [`threshold` option](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) on the IntersectionObserver. Note: if you do not include `0` as a threshold value, the `@leave` event will never be fired.   |
+| `rootMargin`  | `Number`/`String`  | `"0px"`  | Corresponds to the [`rootMargin` option](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) on the IntersectionObserver   |
 
-| Event  | Type  | Arguments | Required  | Description |
+| Event  | Type  | Arguments  | Description |
 |---|---|---|---|---|
-| `@start`  | `Function` | [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | No  | Will be fired whenever the user scrolls to the top of the `IntersectionRoot` container |
-| `@end`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)  | No  | Will be fired whenever the user scrolls to the bottom of the `IntersectionRoot` container |
+| `@start`  | `Function` | [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)  | Will be fired whenever the user scrolls to the top of the `IntersectionRoot` container |
+| `@end`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)  | Will be fired whenever the user scrolls to the bottom of the `IntersectionRoot` container |
 
 #### `IntersectionChild`
 
-| Event  | Type | Arguments  | Required  | Description |
+| Event  | Type | Arguments  | Description |
 |---|---|---|---|---|
-| `@enter`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)  | No  | Will be fired whenever the child element enters the viewport for of the `IntersectionRoot` container |
-| `@leave`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)  | No  | Will be fired whenever the child element leaves the viewport for of the `IntersectionRoot` container |
+| `@enter`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element enters the viewport for of the `IntersectionRoot` container |
+| `@leave`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element leaves the viewport for of the `IntersectionRoot` container |
 
 ### Demo
 

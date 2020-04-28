@@ -12,7 +12,7 @@ export default {
   name: "IntersectionRoot",
   props: {
     rootMargin: [Number, String],
-    threshold: Number
+    threshold: Array
   },
   data() {
     return {
@@ -38,7 +38,7 @@ export default {
     },
     initializeObserver() {
       if (!window.IntersectionObserver) return false;
-      const { rootMargin, threshold, $refs: { root } } = this;
+      const { rootMargin, threshold, $refs } = this;
       const callback = entries => {
         entries.forEach(entry => {
           const entryId = entry.target.getAttribute(ID_ATTR);
@@ -46,7 +46,11 @@ export default {
           child && child.callback(entry);
         });
       };
-      this.observer = new IntersectionObserver(callback, { root, rootMargin, threshold });
+      this.observer = new IntersectionObserver(callback, {
+        root: $refs.root,
+        rootMargin: rootMargin || '0px',
+        threshold: threshold || [0,1],
+      });
       const childKeys = Object.keys(this.childrenById);
       if (childKeys.length > 0) {
         childKeys
