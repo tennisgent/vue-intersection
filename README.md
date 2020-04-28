@@ -74,7 +74,7 @@ export default {
 
 #### Accessing the `observer` instance
 
-If you want to access the instance of `IntersectionObserver` that has been initialized, you can do so using a ref on the `IntersectionRoot` component. This is exposed as `$refs.root.$observer`. This can be helpful if you need to call [`takeRecords()`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/takeRecords) or some other instance method. 
+If you want to access the instance of `IntersectionObserver` that has been initialized, you can do so using a ref on the `IntersectionRoot` component. This is exposed as `observer`. This can be helpful if you need to call [`takeRecords()`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/takeRecords) or some other instance method. 
 
 ```html
 <template>
@@ -89,8 +89,8 @@ export default {
     name: "MyComponent",
     components: { IntersectionRoot },
     mounted() {
-      const { $observer } = this.$refs.myRef.$refs.root;
-      const entries = $observer.takeRecords();
+      const { observer } = this.$refs.myRef
+      const entries = observer.takeRecords();
     }
 }
 </script>
