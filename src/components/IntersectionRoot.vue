@@ -10,11 +10,7 @@
 const ID_ATTR = "data-v__intersection_id";
 export default {
   name: "IntersectionRoot",
-  props: {
-    rootRef: Object,
-    rootMargin: [Number, String],
-    threshold: Array
-  },
+  props: ['rootMargin','threshold'],
   data() {
     return {
       observer: null,
