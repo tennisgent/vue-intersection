@@ -1,8 +1,8 @@
 <template>
   <div ref="root">
-    <div data-v__intersection_id="start"> </div>
+    <div ref="start" class="short"></div>
     <slot></slot>
-    <div data-v__intersection_id="end"> </div>
+    <div ref="end" class="short"></div>
   </div>
 </template>
 
@@ -70,7 +70,7 @@ export default {
     this.initializeObserver();
     if (this.observer) {
       ['start','end'].forEach(key => {
-        const elem = this.$refs.root.querySelector(`[${ID_ATTR}=${key}]`);
+        const elem = this.$refs[key];
         this.registerIntersectionChild(elem, entry => {
           this.$emit(key, entry);
         });
@@ -91,3 +91,8 @@ export default {
   }
 };
 </script>
+<style scoped>
+.short {
+  height: 1px;
+}
+</style>
