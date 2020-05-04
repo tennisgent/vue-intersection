@@ -1,8 +1,8 @@
 <template>
   <div ref="root">
-    <div ref="start" class="short"></div>
+    <div ref="start" data-v__intersection_id="start" style="height:1px;"></div>
     <slot></slot>
-    <div ref="end" class="short"></div>
+    <div ref="end" data-v__intersection_id="end" style="height:1px;"></div>
   </div>
 </template>
 
@@ -91,8 +91,3 @@ export default {
   }
 };
 </script>
-<style scoped>
-.short {
-  height: 1px;
-}
-</style>
