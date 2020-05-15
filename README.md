@@ -59,42 +59,26 @@ export default {
 |---|---|---|---|
 | `threshold`  | `Array`  | `[0,1]`  | Corresponds to the [`threshold` option](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) on the IntersectionObserver. Note: if you do not include `0` as a threshold value, the `@leave` event will never be fired.   |
 | `rootMargin`  | `Number`/`String`  | `"0px"`  | Corresponds to the [`rootMargin` option](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) on the IntersectionObserver   |
+| `startThreshold` | `Number`/`String` | `"0px"` | Distance (`px`) from the top of the container for when to fire the `@start` event 
+| `endThreshold` | `Number`/`String` | `"0px"` | Distance (`px`) from the bottom of the container for when to fire the `@end` event 
 
-| Event  | Type  | Arguments  | Description |
-|---|---|---|---|
-| `@start`  | `Function` | [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)  | Will be fired whenever the user scrolls to the top of the `IntersectionRoot` container |
-| `@end`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry)  | Will be fired whenever the user scrolls to the bottom of the `IntersectionRoot` container |
+| Event | Type | Arguments | Optional |
+| --- | --- | --- | --- |
+| `@start` | `Function` | [`scroll` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event) | `true` |
+| `@end` | `Function` | [`scroll` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event) | `true` |
+| `@middle` | `Function` | [`scroll` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event) | `true` |
 
 #### `IntersectionChild`
+
+| Prop  | Type  | Default  | Description |
+|---|---|---|---|
+| `id` | `String` | Randomly generated | If a `IntersectionChild` has an `id` property, it will be used as the unique identifier for scroll tracking. It is recommended to provide an `id` as it improves performance slightly. 
 
 | Event  | Type | Arguments  | Description |
 |---|---|---|---|
 | `@enter`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element enters the viewport of the `IntersectionRoot` container |
 | `@leave`  | `Function` |  [`IntersectionObserverEntry`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserverEntry) | Will be fired whenever the child element leaves the viewport of the `IntersectionRoot` container |
 
-#### Accessing the `observer` instance
-
-If you want to access the instance of `IntersectionObserver` that has been initialized, you can do so using a ref on the `IntersectionRoot` component. This is exposed as `observer`. This can be helpful if you need to call [`takeRecords()`](https://developer.mozilla.org/en-US/docs/Web/API/IntersectionObserver/takeRecords) or some other instance method. 
-
-```html
-<template>
-  <IntersectionRoot ref="myRef">
-     ...
-  </IntersectionRoot>
-</template>
-<script>
-import { IntersectionRoot } from 'vue-intersection'
-
-export default {
-    name: "MyComponent",
-    components: { IntersectionRoot },
-    mounted() {
-      const { observer } = this.$refs.myRef
-      const entries = observer.takeRecords();
-    }
-}
-</script>
-```
 
 ### Demo
 
@@ -107,7 +91,7 @@ You can find additional examples/demos below:
 
 ### Browser Support
 
-`vue-intersection` works in all browsers that support the `IntersectionObserver` API, which is essentially every major browser except for IE 11. If you need support for IE 11, you can use any of the [`IntersectionObserver` polyfills](https://github.com/w3c/IntersectionObserver/tree/master/polyfill) that are available. For a list of current browser support, look [here](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Browser_compatibility).
+`vue-intersection` works in all browsers that support the `IntersectionObserver` API, which is essentially every major browser except for IE 11. If you need support for IE 11, you can use any of the [`IntersectionObserver` polyfills](https://github.com/w3c/IntersectionObserver/tree/master/polyfill) that are available. For a list of supported browsers, look [here](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API#Browser_compatibility).
 
 ### Alternative Libraries
 

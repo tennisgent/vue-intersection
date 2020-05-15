@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <div class="header">
-      <h2><code>vue-intersection-observer</code></h2>
+      <h2><code>vue-intersection</code></h2>
       <div class="option">
         <div>At top:</div>
         <div><code>{{atStart}}</code></div>
@@ -23,7 +23,14 @@
     </div>
 
     <h4>Number of currently visible children: {{ children.filter(c => c.visible).length }}</h4>
-    <IntersectionRoot :threshold="threshold" :rootMargin="rootMargin" class="container" @start="setStart" @end="setEnd">
+    <IntersectionRoot 
+      :threshold="threshold" 
+      :rootMargin="rootMargin" 
+      class="container" 
+      @start="setStart" 
+      @end="setEnd" 
+      @middle="setMiddle"
+    >
       <IntersectionChild
         class="child"
         v-for="child in children"
@@ -31,7 +38,9 @@
         :class="{ visible: child.visible }"
         @enter="child.visible = true"
         @leave="child.visible = false"
-      >{{ child.id }}</IntersectionChild>
+      >
+        {{ child.id }}
+      </IntersectionChild>
     </IntersectionRoot>
   </div>
 </template>
@@ -46,7 +55,7 @@ export default {
   },
   data() {
     return {
-      atStart: false,
+      atStart: true,
       atEnd: false,
       threshold: 1,
       rootMargin: "0px",
@@ -59,12 +68,16 @@ export default {
     setMargin(e) {
       this.rootMargin = e.target.value + "px";
     },
-    setStart(entry) {
-      this.atStart = entry.isIntersecting;
+    setStart() {
+      this.atStart = true;
     },
-    setEnd(entry) {
-      this.atEnd = entry.isIntersecting;
-    }
+    setEnd() {
+      this.atEnd = true;
+    },
+    setMiddle() {
+      this.atStart = false;
+      this.atEnd = false;
+    },
   }
 };
 </script>

@@ -1,21 +1,22 @@
 <template>
   <div ref="root">
-    <div ref="start" data-v__intersection_id="start" style="height:1px;"></div>
     <slot></slot>
-    <div ref="end" data-v__intersection_id="end" style="height:1px;"></div>
   </div>
 </template>
 
 <script>
+import debounce from 'debounce'
 const ID_ATTR = "data-v__intersection_id";
+const genId = () => Math.random().toString(36).substr(2, 9);
 export default {
   name: "IntersectionRoot",
-  props: ['rootMargin','threshold'],
+  props: ['rootMargin','threshold','startThreshold','endThreshold'],
   data() {
     return {
       observer: null,
       childId: 0,
-      childrenById: {}
+      childrenById: {},
+      scrollHandler: null,
     };
   },
   methods: {
@@ -27,7 +28,7 @@ export default {
         this.childrenById[id] = { ref, callback };
         return true;
       }
-      id = this.childId++;
+      id = ref.getAttribute('id') || genId();
       ref.setAttribute(ID_ATTR, id);
       this.childrenById[id] = { ref, callback };
       this.observer.observe(ref);
@@ -59,6 +60,18 @@ export default {
             this.observer.observe(child.ref);
           });
       }
+    },
+    handleScroll(e) {
+      const { scrollTop, offsetHeight, scrollHeight } = e.target;
+      const start = parseInt(this.startThreshold || 0)
+      const end = parseInt(this.endThreshold || 0)
+      if (scrollTop - start <= 0) {
+        this.$emit('start', e);
+      } else if (offsetHeight + scrollTop + end >= scrollHeight) {
+        this.$emit('end', e);
+      } else {
+        this.$emit('middle', e)
+      }
     }
   },
   provide() {
@@ -68,15 +81,8 @@ export default {
   },
   mounted() {
     this.initializeObserver();
-    if (this.observer) {
-      ['start','end'].forEach(key => {
-        const elem = this.$refs[key];
-        this.registerIntersectionChild(elem, entry => {
-          this.$emit(key, entry);
-        });
-        this.observer.observe(elem);
-      });
-    }
+    this.scrollHandler = debounce(this.handleScroll, 100);
+    this.$refs.root.addEventListener('scroll', this.scrollHandler);
   },
   watch: {
     threshold: function(val, old) {
@@ -88,6 +94,7 @@ export default {
   },
   beforeDestroy() {
     this.observer.disconnect && this.observer.disconnect();
+    this.$refs.root.removeEventListener('scroll', this.scrollHandler);
   }
 };
 </script>

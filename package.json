@@ -1,6 +1,6 @@
 {
   "name": "vue-intersection",
-  "version": "1.1.6",
+  "version": "2.0.0",
   "private": false,
   "description": "Vue component for observing scrolling of long lists of child components",
   "scripts": {
@@ -13,6 +13,7 @@
   "main": "dist/vue-intersection.common.js",
   "dependencies": {
     "core-js": "^3.6.4",
+    "debounce": "^1.2.0",
     "vue": "^2.6.11"
   },
   "devDependencies": {
