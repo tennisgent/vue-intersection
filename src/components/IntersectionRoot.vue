@@ -10,13 +10,15 @@ const ID_ATTR = "data-v__intersection_id";
 const genId = () => Math.random().toString(36).substr(2, 9);
 export default {
   name: "IntersectionRoot",
-  props: ['rootMargin','threshold','startThreshold','endThreshold'],
+  props: ['rootMargin','threshold','startThreshold','endThreshold','debounce'],
   data() {
     return {
       observer: null,
       childId: 0,
       childrenById: {},
       scrollHandler: null,
+      atStart: false,
+      atEnd: false,
     };
   },
   methods: {
@@ -66,10 +68,19 @@ export default {
       const start = parseInt(this.startThreshold || 0)
       const end = parseInt(this.endThreshold || 0)
       if (scrollTop - start <= 0) {
+        this.atStart = true;
         this.$emit('start', e);
       } else if (offsetHeight + scrollTop + end >= scrollHeight) {
+        this.atEnd = true;
         this.$emit('end', e);
       } else {
+        if (this.atStart) {
+          this.atStart = false;
+          this.$emit('start-leave', e);
+        } else if (this.atEnd) {
+          this.atEnd = false;
+          this.$emit('end-leave', e);
+        }
         this.$emit('middle', e)
       }
     }
@@ -81,7 +92,7 @@ export default {
   },
   mounted() {
     this.initializeObserver();
-    this.scrollHandler = debounce(this.handleScroll, 100);
+    this.scrollHandler = debounce(this.handleScroll, this.debounce || 10);
     this.$refs.root.addEventListener('scroll', this.scrollHandler);
   },
   watch: {

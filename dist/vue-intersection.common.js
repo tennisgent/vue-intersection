@@ -1722,12 +1722,12 @@ if (typeof window !== 'undefined') {
 // Indicate to webpack that this file can be concatenated
 /* harmony default export */ var setPublicPath = (null);
 
-// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"793e0793-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/IntersectionRoot.vue?vue&type=template&id=446c5fa3&
+// CONCATENATED MODULE: ./node_modules/cache-loader/dist/cjs.js?{"cacheDirectory":"node_modules/.cache/vue-loader","cacheIdentifier":"793e0793-vue-loader-template"}!./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/cache-loader/dist/cjs.js??ref--0-0!./node_modules/vue-loader/lib??vue-loader-options!./src/components/IntersectionRoot.vue?vue&type=template&id=b28e71da&
 var render = function () {var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;return _c('div',{ref:"root"},[_vm._t("default")],2)}
 var staticRenderFns = []
 
 
-// CONCATENATED MODULE: ./src/components/IntersectionRoot.vue?vue&type=template&id=446c5fa3&
+// CONCATENATED MODULE: ./src/components/IntersectionRoot.vue?vue&type=template&id=b28e71da&
 
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es.array.for-each.js
 var es_array_for_each = __webpack_require__("4160");
@@ -1773,13 +1773,15 @@ var genId = function genId() {
 
 /* harmony default export */ var IntersectionRootvue_type_script_lang_js_ = ({
   name: "IntersectionRoot",
-  props: ['rootMargin', 'threshold', 'startThreshold', 'endThreshold'],
+  props: ['rootMargin', 'threshold', 'startThreshold', 'endThreshold', 'debounce'],
   data: function data() {
     return {
       observer: null,
       childId: 0,
       childrenById: {},
-      scrollHandler: null
+      scrollHandler: null,
+      atStart: false,
+      atEnd: false
     };
   },
   methods: {
@@ -1848,10 +1850,20 @@ var genId = function genId() {
       var end = parseInt(this.endThreshold || 0);
 
       if (scrollTop - start <= 0) {
+        this.atStart = true;
         this.$emit('start', e);
       } else if (offsetHeight + scrollTop + end >= scrollHeight) {
+        this.atEnd = true;
         this.$emit('end', e);
       } else {
+        if (this.atStart) {
+          this.atStart = false;
+          this.$emit('start-leave', e);
+        } else if (this.atEnd) {
+          this.atEnd = false;
+          this.$emit('end-leave', e);
+        }
+
         this.$emit('middle', e);
       }
     }
@@ -1863,7 +1875,7 @@ var genId = function genId() {
   },
   mounted: function mounted() {
     this.initializeObserver();
-    this.scrollHandler = debounce_default()(this.handleScroll, 100);
+    this.scrollHandler = debounce_default()(this.handleScroll, this.debounce || 10);
     this.$refs.root.addEventListener('scroll', this.scrollHandler);
   },
   watch: {

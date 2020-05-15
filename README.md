@@ -61,13 +61,14 @@ export default {
 | `rootMargin`  | `Number`/`String`  | `"0px"`  | Corresponds to the [`rootMargin` option](https://developer.mozilla.org/en-US/docs/Web/API/Intersection_Observer_API) on the IntersectionObserver   |
 | `startThreshold` | `Number`/`String` | `"0px"` | Distance (`px`) from the top of the container for when to fire the `@start` event 
 | `endThreshold` | `Number`/`String` | `"0px"` | Distance (`px`) from the bottom of the container for when to fire the `@end` event 
+| `debounce` | `Number` | `10` | Time (`ms`) to debounce scroll events (only affects `@start`, `@end`, `@middle`, not `@enter`, `@leave`).
 
 | Event | Type | Arguments | Optional |
 | --- | --- | --- | --- |
 | `@start` | `Function` | [`scroll` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event) | `true` |
 | `@end` | `Function` | [`scroll` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event) | `true` |
 | `@middle` | `Function` | [`scroll` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event) | `true` |
-**NOTE**: These 3 events are debounced and will only fire (at most) once every 100ms, so they will only fire _after_ the user has stopped scrolling, to improve performance.
+**NOTE**: These 3 events are debounced and will fire (at most) once every 10ms, by default. If this is too frequent, set the `debounce` prop to a higher delay, which will improve peformance. To capture all events, set `debounce` to `0`.
 
 #### `IntersectionChild`
 

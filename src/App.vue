@@ -7,6 +7,10 @@
         <div><code>{{atStart}}</code></div>
       </div>
       <div class="option">
+        <div>In middle:</div>
+        <div><code>{{atMiddle}}</code></div>
+      </div>
+      <div class="option">
         <div>At bottom:</div>
         <div><code>{{atEnd}}</code></div>
       </div>
@@ -25,11 +29,14 @@
     <h4>Number of currently visible children: {{ children.filter(c => c.visible).length }}</h4>
     <IntersectionRoot 
       :threshold="threshold" 
-      :rootMargin="rootMargin" 
+      :rootMargin="rootMargin"
+      :debounce="10"
       class="container" 
-      @start="setStart" 
-      @end="setEnd" 
-      @middle="setMiddle"
+      @start="atStart = true; atMiddle = false;" 
+      @start-leave="atStart = false"
+      @end="atEnd = true; atMiddle = false;" 
+      @end-leave="atEnd = false"
+      @middle="atMiddle = true"
     >
       <IntersectionChild
         class="child"
@@ -57,6 +64,8 @@ export default {
     return {
       atStart: true,
       atEnd: false,
+      atMiddle: false,
+      midCount: 0,
       threshold: 1,
       rootMargin: "0px",
       children: new Array(50)
@@ -67,17 +76,7 @@ export default {
   methods: {
     setMargin(e) {
       this.rootMargin = e.target.value + "px";
-    },
-    setStart() {
-      this.atStart = true;
-    },
-    setEnd() {
-      this.atEnd = true;
-    },
-    setMiddle() {
-      this.atStart = false;
-      this.atEnd = false;
-    },
+    }
   }
 };
 </script>
