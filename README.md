@@ -67,6 +67,7 @@ export default {
 | `@start` | `Function` | [`scroll` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event) | `true` |
 | `@end` | `Function` | [`scroll` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event) | `true` |
 | `@middle` | `Function` | [`scroll` event](https://developer.mozilla.org/en-US/docs/Web/API/Document/scroll_event) | `true` |
+**NOTE**: These 3 events are debounced and will only fire (at most) once every 100ms, so they will only fire _after_ the user has stopped scrolling, to improve performance.
 
 #### `IntersectionChild`
 
