@@ -2,6 +2,7 @@
   "name": "vue-intersection",
   "version": "2.0.1",
   "private": false,
+  "license": "MIT",
   "description": "Vue component for observing scrolling of long lists of child components",
   "scripts": {
     "serve": "vue-cli-service serve",
